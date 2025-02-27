@@ -4,18 +4,9 @@ import { useDispatch } from "react-redux";
 import { setIssues } from "src/redux/slices/issuesSlice";
 import { useGetIssuesQuery } from "src/redux/services/issuesApi";
 import { skipToken } from "@reduxjs/toolkit/query";
-import  { GithubRequestParams, Issue, IssueSummary } from "src/types";
+import  { GithubRequestParams } from "src/types";
 
-const formatRelativeDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 0) return "today";
-  if (diffDays === 1) return "yesterday";
-  return `${diffDays} days ago`;
-};
 
 const SearchForm = () => {
   const dispatch = useDispatch();
@@ -40,16 +31,8 @@ const SearchForm = () => {
 
   useEffect(() => {
     if (data) {
-      const mappedIssues: IssueSummary[] = data.map((issue: Issue) => ({
-        title: issue.title,
-        number: issue.number,
-        createdAt: formatRelativeDate(issue.created_at),
-        userLogin: issue.user.login,
-        comments: issue.comments,
-      }));
-      console.log(mappedIssues);
-
-      dispatch(setIssues(mappedIssues));
+      console.log(data);
+      dispatch(setIssues(data));
     }
   }, [data, dispatch]);
 

@@ -2,9 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import issuesReducer from "./slices/issuesSlice";
 import { issuesApi } from "./services/issuesApi";
 
-console.log('Vite MODE:', import.meta.env.MODE);
-
-
 export const store = configureStore({
   reducer: {
     issues: issuesReducer,
